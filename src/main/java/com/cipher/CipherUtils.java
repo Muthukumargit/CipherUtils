@@ -80,7 +80,7 @@ public class CipherUtils implements ApplicationContextInitializer<ConfigurableAp
 		}
 	}
 	
-	private String EncryptionForEmail(String plainText) {
+	public String EncryptionForEmail(String plainText) {
 		
 		String key=environment.getProperty("email.secret.key");
 		String iv=environment.getProperty("email.secret.iv");;
@@ -102,7 +102,7 @@ public class CipherUtils implements ApplicationContextInitializer<ConfigurableAp
 		}
 	}
 	
-private String DecryptionForEmail(String encryptedText) {
+		public String DecryptionForEmail(String encryptedText) {
 		
 		String key=environment.getProperty("email.secret.key");
 		String iv=environment.getProperty("email.secret.iv");;
