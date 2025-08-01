@@ -68,12 +68,9 @@ public class CipherUtils implements ApplicationContextInitializer<ConfigurableAp
 			IvParameterSpec ivSpec = new IvParameterSpec(iv.getBytes());
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 			cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
-//			System.out.println("encrpytedTxt ::" + encrpytedTxt);
 			byte[] decrypt = cipher.doFinal(Base64.getDecoder().decode(encrpytedTxt));
-//			System.out.println("decrypt ::" + new String(decrypt));
 			return new String(decrypt);
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("error while encrypting ::" + e.getMessage());
 			e.printStackTrace();
 			return encrpytedTxt;
@@ -90,12 +87,9 @@ public class CipherUtils implements ApplicationContextInitializer<ConfigurableAp
 			IvParameterSpec ivSpec = new IvParameterSpec(iv.getBytes());
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 			cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
-//			System.out.println("encrpytedTxt ::" + encrpytedTxt);
-			byte[] encrypt = cipher.doFinal(Base64.getDecoder().decode(plainText));
-//			System.out.println("decrypt ::" + new String(decrypt));
-			return new String(encrypt);
+			byte[] encryptedBytes = cipher.doFinal(plainText.getBytes("UTF-8")); // convert plaintext to bytes
+	        return Base64.getEncoder().encodeToString(encryptedBytes); // return as Base64 string
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("error while encrypting ::" + e.getMessage());
 			e.printStackTrace();
 			return plainText;
@@ -112,11 +106,10 @@ public class CipherUtils implements ApplicationContextInitializer<ConfigurableAp
 			IvParameterSpec ivSpec = new IvParameterSpec(iv.getBytes());
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 			cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
-//			System.out.println("encrpytedTxt ::" + encrpytedTxt);
-			byte[] decrypt = cipher.doFinal(Base64.getDecoder().decode(encryptedText));
-			return new String(decrypt);
+			  byte[] decodedBytes = Base64.getDecoder().decode(encryptedText); // decode from Base64
+		      byte[] decryptedBytes = cipher.doFinal(decodedBytes); // decrypt
+		      return new String(decryptedBytes, "UTF-8");
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("error while encrypting ::" + e.getMessage());
 			e.printStackTrace();
 			return encryptedText;
