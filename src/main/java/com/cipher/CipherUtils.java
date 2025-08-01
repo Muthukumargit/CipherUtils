@@ -78,7 +78,7 @@ public class CipherUtils implements ApplicationContextInitializer<ConfigurableAp
 	}
 	
 	public String EncryptionForEmail(String plainText) {
-		
+		System.out.println("Entered into EncryptionForEmail");
 		String key=environment.getProperty("email.secret.key");
 		String iv=environment.getProperty("email.secret.iv");;
 		
@@ -97,7 +97,7 @@ public class CipherUtils implements ApplicationContextInitializer<ConfigurableAp
 	}
 	
 		public String DecryptionForEmail(String encryptedText) {
-		
+		System.out.println("Entered into DecryptionForEmail");
 		String key=environment.getProperty("email.secret.key");
 		String iv=environment.getProperty("email.secret.iv");;
 		
